@@ -1,0 +1,22 @@
+name: Lint
+
+# yggdrasil's lint module: actionlint and zizmor's pedantic audits over the
+# workflows, and Semgrep's rule that a tagged Dockerfile FROM carries a digest
+# (a repo with no Dockerfile scans nothing there).
+#
+# The default-branch ruleset requires `Lint / actionlint`, `Lint / zizmor` and
+# `Lint / semgrep` (this job's name, then the module's); renaming either
+# strands PRs on a check that never reports.
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions: {}
+
+jobs:
+  lint:
+    name: Lint
+    uses: zimmertr/yggdrasil/.github/workflows/lint.yml@d8443185af7a5e3b4b197b8ee167533d79c816c5 # v0.14.0
+    permissions:
+      contents: read # the module checks out the repo
